@@ -18,7 +18,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Aesthetics and Gap Reduction
+# Custom CSS for Aesthetics and Ultra-Compact Layout
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -31,32 +31,32 @@ st.markdown("""
         background-color: #ffffff;
     }
 
-    /* Reduce Top Margin/Padding of the whole page */
+    /* Container Spacing */
     .main .block-container {
-        padding-top: 1.5rem !important;
-        padding-bottom: 3rem !important;
+        padding-top: 1.2rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 1000px !important;
     }
 
-    /* Heading Margin */
+    /* Header Margin */
     .brand-header {
-        margin-top: -30px !important;
-        margin-bottom: 10px !important;
+        margin-top: -35px !important;
+        margin-bottom: 5px !important;
         font-size: 32px;
         font-weight: 800;
         color: #1a1a1a;
     }
 
-    /* Sidebar Styling */
+    /* Sidebar Fixes */
     section[data-testid="stSidebar"] {
         background-color: #0c0c0c !important;
-        border-right: 1px solid #1e1e1e;
     }
     
     section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] p {
         color: #f0f0f0 !important;
     }
 
-    /* Navigation Buttons Fix */
+    /* Button Visibility */
     .stButton > button {
         width: 100%;
         border-radius: 8px;
@@ -64,6 +64,7 @@ st.markdown("""
         color: #ffffff !important;
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
+        padding: 4px !important;
     }
     
     .stButton > button:hover {
@@ -71,15 +72,15 @@ st.markdown("""
         background-color: #222 !important;
     }
 
-    /* Chat Messages - Reducing Gaps and Colors */
+    /* Chat Messages - Ultra Compact */
     [data-testid="stChatMessage"] {
-        padding: 5px 12px !important;
-        margin-bottom: 5px !important;
+        padding: 4px 12px !important;
+        margin-bottom: 2px !important;
         border-radius: 10px;
         border: none !important;
     }
 
-    /* Chatbot Bubble Color #cefad0 */
+    /* Colors and personalities */
     [data-testid="stChatMessage"]:has(span[data-testid="stChatMessageAvatarAssistant"]),
     .stChatMessage.assistant {
         background-color: #cefad0 !important;
@@ -90,13 +91,26 @@ st.markdown("""
         background-color: #f7f9fa !important;
     }
 
-    /* Source Footer inside bubble */
+    /* Source Links with spacing */
     .source-footer {
-        font-size: 0.8rem;
-        color: #666;
-        margin-top: 5px;
-        padding-top: 5px;
+        font-size: 0.75rem;
+        color: #555;
+        margin-top: 4px;
+        padding-top: 4px;
         border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    /* Disclaimer Footer Refinement */
+    .disclaimer {
+        position: fixed;
+        bottom: 5px;
+        right: 15px;
+        font-size: 8px !important;
+        color: #999;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+        pointer-events: none;
     }
     
     @media (prefers-color-scheme: dark) {
@@ -110,10 +124,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Main Brand Heading
+# Branding Heading
 st.markdown('<div class="brand-header"><span style="color: #4ade80;">GROWW</span> Mutual Fund AI Assistant</div>', unsafe_allow_html=True)
 
-# Initialize Session State
+# Session State
 if 'engine' not in st.session_state:
     st.session_state.engine = RAGEngine()
 if 'view' not in st.session_state:
@@ -123,7 +137,6 @@ if 'messages' not in st.session_state:
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# Helper Functions
 def start_new_chat():
     if st.session_state.messages:
         chat_id = str(uuid.uuid4())[:8]
@@ -137,17 +150,20 @@ def load_chat(chat_idx):
     st.session_state.view = 'chat'
 
 def format_message(role, content):
+    # Ensure line breaks for factual data (bullets) are preserved for markdown
+    formatted_content = content.replace("\n", "  \n")
+    
     if role == "assistant":
-        source_match = re.search(r"Source:\s*(https?://\S+)", content, re.IGNORECASE)
+        source_match = re.search(r"Source:\s*(https?://\S+)", formatted_content, re.IGNORECASE)
         if source_match:
             source = source_match.group(1).strip().rstrip('.,;)]')
-            answer_text = re.sub(r"Source:\s*https?://\S+.*?\n?", "", content, flags=re.IGNORECASE).strip()
+            answer_text = re.sub(r"Source:\s*https?://\S+.*?\n?", "", formatted_content, flags=re.IGNORECASE).strip()
             st.markdown(answer_text, unsafe_allow_html=True)
             st.markdown(f'<div class="source-footer">Source: <a href="{source}" target="_blank">{source}</a></div>', unsafe_allow_html=True)
         else:
-            st.markdown(content, unsafe_allow_html=True)
+            st.markdown(formatted_content, unsafe_allow_html=True)
     else:
-        st.markdown(content, unsafe_allow_html=True)
+        st.markdown(formatted_content, unsafe_allow_html=True)
 
 # Sidebar
 with st.sidebar:
@@ -168,13 +184,11 @@ with st.sidebar:
                 st.session_state.history.pop(i)
                 st.rerun()
 
-# Layout
+# Layout Content
 if st.session_state.view == 'home':
     st.title("Mutual Fund Resources")
-    st.write("Browse official portals and documents from the links below.")
-    st.markdown("- [SEBI Portal](https://www.sebi.gov.in/)\n- [AMFI India](https://www.amfiindia.com/)")
+    st.write("Browse official portals and documents below.")
 else:
-    # Chat Loop
     if not st.session_state.messages:
         with st.chat_message("assistant", avatar="✳"):
             st.write("Hello! I am your Mutual Fund AI Assistant. How can I help you today?")
@@ -183,12 +197,11 @@ else:
         with st.chat_message(msg["role"], avatar="✳" if msg["role"] == "assistant" else "👤"):
             format_message(msg["role"], msg["content"])
 
-    # Chat Input
     if prompt := st.chat_input("Ask about HDFC, SBI, or other funds..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.rerun()
 
-# RAG
+# RAG Logic
 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
     last_query = st.session_state.messages[-1]["content"]
     try:
@@ -198,5 +211,5 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
-# Bottom Label
-st.markdown('<div style="position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: #999;">Facts-only. No investment advice.</div>', unsafe_allow_html=True)
+# Disclaimer Refined
+st.markdown('<div class="disclaimer">Facts-only. No investment advice.</div>', unsafe_allow_html=True)

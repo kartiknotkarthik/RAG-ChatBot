@@ -18,7 +18,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Aesthetics and Ultra-Compact Layout
+# Custom CSS for drastic gap reduction
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -31,18 +31,18 @@ st.markdown("""
         background-color: #ffffff;
     }
 
-    /* Container Spacing */
+    /* Drastic Container Padding Reduction */
     .main .block-container {
-        padding-top: 1.2rem !important;
-        padding-bottom: 2rem !important;
+        padding-top: 1rem !important;
+        padding-bottom: 0.5rem !important;
         max-width: 1000px !important;
     }
 
-    /* Header Margin */
+    /* Brand Header Tightening */
     .brand-header {
-        margin-top: -35px !important;
-        margin-bottom: 5px !important;
-        font-size: 32px;
+        margin-top: -40px !important;
+        margin-bottom: 2px !important;
+        font-size: 30px;
         font-weight: 800;
         color: #1a1a1a;
     }
@@ -56,7 +56,7 @@ st.markdown("""
         color: #f0f0f0 !important;
     }
 
-    /* Button Visibility */
+    /* Button Styling */
     .stButton > button {
         width: 100%;
         border-radius: 8px;
@@ -64,7 +64,6 @@ st.markdown("""
         color: #ffffff !important;
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
-        padding: 4px !important;
     }
     
     .stButton > button:hover {
@@ -72,15 +71,15 @@ st.markdown("""
         background-color: #222 !important;
     }
 
-    /* Chat Messages - Ultra Compact */
+    /* Chat Messages - Ultra Compact with zero bottom margin */
     [data-testid="stChatMessage"] {
-        padding: 4px 12px !important;
-        margin-bottom: 2px !important;
+        padding: 2px 10px !important;
+        margin-bottom: 1px !important;
         border-radius: 10px;
         border: none !important;
     }
 
-    /* Colors and personalities */
+    /* Personality colors */
     [data-testid="stChatMessage"]:has(span[data-testid="stChatMessageAvatarAssistant"]),
     .stChatMessage.assistant {
         background-color: #cefad0 !important;
@@ -91,26 +90,29 @@ st.markdown("""
         background-color: #f7f9fa !important;
     }
 
-    /* Source Links with spacing */
+    /* Source Links - Drastically tighter */
     .source-footer {
-        font-size: 0.75rem;
-        color: #555;
-        margin-top: 4px;
-        padding-top: 4px;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        font-size: 0.7rem;
+        color: #444;
+        margin-top: 2px;
+        padding-top: 2px;
+        border-top: 1px solid rgba(0,0,0,0.04);
+        display: block;
+        line-height: 1.2;
     }
     
-    /* Disclaimer Footer Refinement */
+    /* Disclaimer Footer Drastic Fix */
     .disclaimer {
         position: fixed;
-        bottom: 5px;
+        bottom: 2px;
         right: 15px;
         font-size: 8px !important;
-        color: #999;
+        color: #aaa;
         margin: 0 !important;
         padding: 0 !important;
         line-height: 1 !important;
         pointer-events: none;
+        z-index: 1000;
     }
     
     @media (prefers-color-scheme: dark) {
@@ -124,7 +126,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Branding Heading
+# Brand Header
 st.markdown('<div class="brand-header"><span style="color: #4ade80;">GROWW</span> Mutual Fund AI Assistant</div>', unsafe_allow_html=True)
 
 # Session State
@@ -150,7 +152,7 @@ def load_chat(chat_idx):
     st.session_state.view = 'chat'
 
 def format_message(role, content):
-    # Ensure line breaks for factual data (bullets) are preserved for markdown
+    # Preserve line breaks for factual data (bullets)
     formatted_content = content.replace("\n", "  \n")
     
     if role == "assistant":
@@ -158,8 +160,9 @@ def format_message(role, content):
         if source_match:
             source = source_match.group(1).strip().rstrip('.,;)]')
             answer_text = re.sub(r"Source:\s*https?://\S+.*?\n?", "", formatted_content, flags=re.IGNORECASE).strip()
-            st.markdown(answer_text, unsafe_allow_html=True)
-            st.markdown(f'<div class="source-footer">Source: <a href="{source}" target="_blank">{source}</a></div>', unsafe_allow_html=True)
+            # Drastically reduce gap by merging into one markdown/html block
+            html_payload = f"{answer_text}<div class='source-footer'>Source: <a href='{source}' target='_blank'>{source}</a></div>"
+            st.markdown(html_payload, unsafe_allow_html=True)
         else:
             st.markdown(formatted_content, unsafe_allow_html=True)
     else:
@@ -187,7 +190,6 @@ with st.sidebar:
 # Layout Content
 if st.session_state.view == 'home':
     st.title("Mutual Fund Resources")
-    st.write("Browse official portals and documents below.")
 else:
     if not st.session_state.messages:
         with st.chat_message("assistant", avatar="✳"):
@@ -201,7 +203,7 @@ else:
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.rerun()
 
-# RAG Logic
+# RAG
 if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
     last_query = st.session_state.messages[-1]["content"]
     try:
@@ -211,5 +213,5 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
-# Disclaimer Refined
+# Disclaimer
 st.markdown('<div class="disclaimer">Facts-only. No investment advice.</div>', unsafe_allow_html=True)

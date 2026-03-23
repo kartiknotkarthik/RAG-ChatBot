@@ -1,0 +1,22 @@
+{
+    "fund_name": "HDFC Silver ETF FoF Direct Growth",
+    "categories": [
+        "Commodities",
+        "Silver",
+        "Very High Risk",
+        "Annualised returns",
+        "Absolute returns"
+    ],
+    "nav": "\u20b937.79",
+    "min_for_sip": "\u20b9100",
+    "fund_size": "\u20b94,734.74 Cr",
+    "expense_ratio": "0.23%",
+    "performance": {
+        "3 months": "-3.87%",
+        "6 months": "+16.42%",
+        "1 year": "+60.04%",
+        "3 years": "+136.50%"
+    },
+    "risk_level": "Very High Risk",
+    "amc_name": "HDFC"
+}

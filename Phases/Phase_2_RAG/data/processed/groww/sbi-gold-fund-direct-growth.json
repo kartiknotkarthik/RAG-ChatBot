@@ -1,0 +1,22 @@
+{
+    "fund_name": "SBI Gold Direct Plan Growth",
+    "categories": [
+        "Commodities",
+        "Gold",
+        "High Risk",
+        "Annualised returns",
+        "Absolute returns"
+    ],
+    "nav": "\u20b944.74",
+    "min_for_sip": "\u20b9500",
+    "fund_size": "\u20b915,700.39 Cr",
+    "expense_ratio": "0.23%",
+    "performance": {
+        "1 year": "+26.87%",
+        "3 years": "+82.82%",
+        "5 years": "+121.56%",
+        "10 years": "+212.36%"
+    },
+    "risk_level": "High Risk",
+    "amc_name": "SBI"
+}

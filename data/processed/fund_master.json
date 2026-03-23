@@ -1,0 +1,119 @@
+[
+    {
+        "fund_name": "HDFC Large and Mid Cap Fund Direct Growth",
+        "amc_name": "HDFC Mutual Fund",
+        "category": "Equity - Large & MidCap",
+        "type": "Direct Growth",
+        "launch_date": "18-Feb-1994",
+        "benchmark_index": "NIFTY Large Midcap 250 Total Return Index",
+        "investment_objective": "To generate long-term capital appreciation from a portfolio predominantly invested in equity and equity-related instruments of large and mid-cap companies.",
+        "nav": "₹327.32 (as of 21-Mar-2026)",
+        "nav_at_launch": "₹10.00",
+        "performance": {
+            "1M": "+1.2%",
+            "3M": "+4.5%",
+            "6M": "+12.8%",
+            "1Y": "34.58%",
+            "3Y": "22.4%",
+            "5Y": "28.1%",
+            "since_inception": "14.2% CAGR"
+        },
+        "risk_level": "Very High Risk",
+        "fund_size": "₹28,580.03 Cr (AUM)",
+        "expense_ratio": "0.88%",
+        "exit_load": "1.0% for redemption within 365 days",
+        "stamp_duty": "0.005% (one-time on investment)",
+        "min_sip": "₹100",
+        "min_lumpsum": "₹100",
+        "taxation": "Short Term (STCG): 20% if sold within 1 year. Long Term (LTCG): 12.5% on gains over ₹1.25 Lakh per year if sold after 1 year.",
+        "fund_managers": [
+            {
+                "name": "Gopal Agrawal",
+                "tenure": "Jul 2020 - Present",
+                "experience": "20+ years"
+            },
+            {
+                "name": "Dhruv Muchhal",
+                "tenure": "Jun 2023 - Present",
+                "experience": "10+ years"
+            }
+        ],
+        "redemption_timeline": "T+2 working days",
+        "citation_url": "https://groww.in/mutual-funds/hdfc-large-and-mid-cap-fund-direct-growth"
+    },
+    {
+        "fund_name": "HDFC Silver ETF FoF Direct Growth",
+        "amc_name": "HDFC Mutual Fund",
+        "category": "Commodity - Silver",
+        "type": "Fund of Funds (FoF)",
+        "launch_date": "07-Oct-2022",
+        "benchmark_index": "Domestic Price of Silver",
+        "investment_objective": "To seek capital appreciation by investing in units of HDFC Silver ETF (HSETF).",
+        "nav": "₹37.79 (as of 21-Mar-2026)",
+        "nav_at_launch": "₹10.00",
+        "performance": {
+            "1M": "-2.1%",
+            "3M": "16.42%",
+            "6M": "24.5%",
+            "1Y": "60.04%",
+            "since_inception": "38.2% CAGR"
+        },
+        "risk_level": "Very High Risk",
+        "fund_size": "₹4,734.74 Cr (AUM)",
+        "expense_ratio": "0.23%",
+        "exit_load": "0.25% if redeemed within 7 days, Nil thereafter",
+        "stamp_duty": "0.005%",
+        "min_sip": "₹100",
+        "min_lumpsum": "₹100",
+        "taxation": "Short Term (STCG): Added to income and taxed at slab rate. Long Term (LTCG): 12.5% if held for more than 24 months (as per New Budget rules for non-equity assets).",
+        "fund_managers": [
+            {
+                "name": "Arun Agarwal",
+                "tenure": "Feb 2023 - Present",
+                "experience": "15+ years"
+            }
+        ],
+        "redemption_timeline": "T+1 working days",
+        "citation_url": "https://groww.in/mutual-funds/hdfc-silver-etf-fof-direct-growth"
+    },
+    {
+        "fund_name": "SBI Gold Direct Plan Growth",
+        "amc_name": "SBI Mutual Fund",
+        "category": "Commodity - Gold",
+        "type": "Direct Growth",
+        "launch_date": "12-Sep-2011",
+        "benchmark_index": "Domestic Price of Gold",
+        "investment_objective": "To provide returns that closely correspond to returns provided by SBI Gold Exchange Traded Scheme (SBI GETS).",
+        "nav": "₹44.74 (as of 21-Mar-2026)",
+        "nav_at_launch": "₹10.00",
+        "performance": {
+            "1M": "+3.4%",
+            "3M": "+8.2%",
+            "6M": "+15.7%",
+            "1Y": "26.87%",
+            "3Y": "18.5%",
+            "5Y": "14.2%",
+            "since_inception": "11.8% CAGR"
+        },
+        "risk_level": "High Risk",
+        "fund_size": "₹15,700.39 Cr (AUM)",
+        "expense_ratio": "0.23%",
+        "exit_load": "1.0% if redeemed within 15 days, Nil thereafter",
+        "stamp_duty": "0.005%",
+        "min_sip": "₹500",
+        "min_lumpsum": "₹5000",
+        "taxation": "Gains are added to total income and taxed at applicable window slab rates (Debt/Commodity treatment). LTCG at 12.5% if held > 24 months (post-2024 budget).",
+        "fund_managers": [
+            {
+                "name": "Pradeep Kesavan",
+                "tenure": "Dec 2023 - Present"
+            },
+            {
+                "name": "Viral Chhadva",
+                "tenure": "Mar 2024 - Present"
+            }
+        ],
+        "redemption_timeline": "T+3 working days",
+        "citation_url": "https://groww.in/mutual-funds/sbi-gold-fund-direct-growth"
+    }
+]

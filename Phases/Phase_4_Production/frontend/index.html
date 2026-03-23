@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Fund AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo-container">
+                    <span class="logo-icon">✳</span>
+                </div>
+                
+                <nav class="nav-list">
+                    <button class="nav-item active" id="btn-new-chat">
+                        <span class="material-symbols-outlined">add</span>
+                        New Chat
+                    </button>
+                    <button class="nav-item" id="btn-home">
+                        <span class="material-symbols-outlined">home</span>
+                        Home
+                    </button>
+                </nav>
+
+                <div class="sidebar-section">
+                    <div class="section-title">
+                        OLDER CHATS
+                    </div>
+                    <div class="chat-items" id="chat-history-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="brand-name">Mutual Fund AI Assistant</div>
+                <div class="header-actions">
+                <div class="header-actions">
+                    <button class="btn-settings" id="open-settings">
+                        <span class="material-symbols-outlined">settings</span>
+                        Settings
+                    </button>
+                </div>
+            </header>
+
+            <!-- Settings Modal -->
+            <div id="settings-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Settings</h3>
+                        <span class="close-modal material-symbols-outlined">close</span>
+                    </div>
+                    <div class="settings-group">
+                        <label>Appearance</label>
+                        <div class="theme-options">
+                            <button id="theme-light" class="theme-btn active">
+                                <span class="material-symbols-outlined">light_mode</span>
+                                Light
+                            </button>
+                            <button id="theme-dark" class="theme-btn">
+                                <span class="material-symbols-outlined">dark_mode</span>
+                                Dark
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home View (Hidden by default) -->
+            <div class="view-container" id="home-view" style="display: none;">
+                <div class="home-content">
+                    <h1>Mutual Fund Resources</h1>
+                    <div class="resource-grid">
+                        <div class="resource-card">
+                            <h3>Official Portals</h3>
+                            <ul>
+                                <li><a href="https://www.amfiindia.com/" target="_blank">AMFI - Association of Mutual Funds in India</a></li>
+                                <li><a href="https://www.sebi.gov.in/" target="_blank">SEBI - Securities and Exchange Board of India</a></li>
+                                <li><a href="https://www.amfiindia.com/net-asset-value" target="_blank">Latest NAVs (AMFI)</a></li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h3>AMC Factsheets</h3>
+                            <ul>
+                                <li><a href="https://www.sbimf.com/en-us/factsheets" target="_blank">SBI Mutual Fund Factsheets</a></li>
+                                <li><a href="https://www.hdfcfund.com/mutual-funds/factsheets" target="_blank">HDFC Mutual Fund Factsheets</a></li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h3>Market Data & Insights</h3>
+                            <ul>
+                                <li><a href="https://groww.in/mutual-funds" target="_blank">Groww - Mutual Fund Discovery</a></li>
+                                <li><a href="https://www.moneycontrol.com/mutual-funds/" target="_blank">Moneycontrol Mutual Fund Tracker</a></li>
+                                <li><a href="https://www.valueresearchonline.com/" target="_blank">Value Research Online</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-container" id="chat-view">
+                <!-- Chat Window -->
+                <div class="chat-window" id="chat-window">
+                    <!-- AI Welcome Message -->
+                    <div class="message-row ai">
+                        <div class="ai-avatar"><span class="material-symbols-outlined">asterisk</span></div>
+                        <div class="message-content">
+                            <div class="message-meta">AI Assistant <span>now</span></div>
+                            <div class="message-text">Hello! I am your Mutual Fund AI Assistant. I can help you with factual data about mutual funds and SEBI regulations. How can I help you today?</div>
+                            <div class="message-actions">
+                                <span class="material-symbols-outlined">replay</span>
+                                <span class="material-symbols-outlined">volume_up</span>
+                                <span class="material-symbols-outlined">content_copy</span>
+                                <span class="material-symbols-outlined">thumb_down</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <button class="icon-btn attach"><span class="material-symbols-outlined">attachment</span></button>
+                        <textarea id="chat-input" placeholder="Ask about fund costs, returns, or SEBI rules..." rows="1"></textarea>
+                        <button class="icon-btn voice"><span class="material-symbols-outlined">mic</span></button>
+                        <button class="icon-btn send" id="send-btn"><span class="material-symbols-outlined">arrow_upward</span></button>
+                    </div>
+                    <div class="input-footer">
+                        Facts-only. No investment advice. Citation links provided for all data.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

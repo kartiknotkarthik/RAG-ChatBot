@@ -1,0 +1,22 @@
+{
+    "fund_name": "HDFC Large and Mid Cap Fund Direct Growth",
+    "categories": [
+        "Equity",
+        "Large & MidCap",
+        "Very High Risk",
+        "Annualised returns",
+        "Absolute returns"
+    ],
+    "nav": "\u20b9327.32",
+    "min_for_sip": "\u20b9100",
+    "fund_size": "\u20b928,580.03 Cr",
+    "expense_ratio": "0.88%",
+    "performance": {
+        "1 year": "-6.69%",
+        "3 years": "+7.45%",
+        "5 years": "+34.58%",
+        "10 years": "+122.31%"
+    },
+    "risk_level": "Very High Risk",
+    "amc_name": "HDFC"
+}

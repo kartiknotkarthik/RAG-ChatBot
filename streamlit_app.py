@@ -51,11 +51,19 @@ st.markdown("""
         text-align: center;
     }
 
-    /* Buttons */
+    /* Buttons Visibility Fix */
     .stButton > button {
         width: 100%;
         border-radius: 8px;
-        font-weight: 500;
+        font-weight: 600;
+        color: #ffffff !important;
+        background-color: #1e1e1e !important;
+        border: 1px solid #333 !important;
+    }
+    
+    .stButton > button:hover {
+        border-color: #4ade80 !important;
+        background-color: #222 !important;
     }
     
     /* Chat Bubbles */
@@ -197,8 +205,8 @@ if st.session_state.view == 'home':
         """, unsafe_allow_html=True)
 
 else:
-    # Chat View
-    st.header("Mutual Fund AI Assistant")
+    # Main Header with GROWW Branding
+    st.markdown('<h1 style="font-size: 32px; font-weight: 800;"><span style="color: #4ade80;">GROWW</span> Mutual Fund AI Assistant</h1>', unsafe_allow_html=True)
     
     # Display Welcome Message if empty
     if not st.session_state.messages:

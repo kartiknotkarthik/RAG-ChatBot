@@ -18,7 +18,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for drastic gap reduction
+# Custom CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -31,14 +31,12 @@ st.markdown("""
         background-color: #ffffff;
     }
 
-    /* Drastic Container Padding Reduction */
     .main .block-container {
         padding-top: 1rem !important;
         padding-bottom: 0px !important;
         max-width: 1000px !important;
     }
 
-    /* Brand Header Tightening */
     .brand-header {
         margin-top: -45px !important;
         margin-bottom: 0px !important;
@@ -47,7 +45,6 @@ st.markdown("""
         color: #1a1a1a;
     }
 
-    /* Sidebar Fixes */
     section[data-testid="stSidebar"] {
         background-color: #0c0c0c !important;
     }
@@ -56,7 +53,6 @@ st.markdown("""
         color: #f0f0f0 !important;
     }
 
-    /* Button Styling */
     .stButton > button {
         width: 100%;
         border-radius: 8px;
@@ -67,7 +63,6 @@ st.markdown("""
         padding: 2px !important;
     }
 
-    /* Chat Messages - Ultra Compact with zero bottom margin */
     [data-testid="stChatMessage"] {
         padding: 1px 10px !important;
         margin-bottom: 0px !important;
@@ -75,7 +70,6 @@ st.markdown("""
         border: none !important;
     }
 
-    /* Personality colors */
     [data-testid="stChatMessage"]:has(span[data-testid="stChatMessageAvatarAssistant"]),
     .stChatMessage.assistant {
         background-color: #cefad0 !important;
@@ -86,12 +80,10 @@ st.markdown("""
         background-color: #f7f9fa !important;
     }
 
-    /* Global Text tightness */
     p, span, div {
         margin-bottom: 0px !important;
     }
 
-    /* Source Links - Zero gap */
     .source-wrapper {
         font-size: 0.7rem;
         color: #444;
@@ -108,8 +100,36 @@ st.markdown("""
         margin-top: 2px !important;
         display: block;
     }
+
+    /* Resource Card Styles */
+    .resource-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #f2f2f2;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        height: 100%;
+        margin-bottom: 15px;
+    }
     
-    /* Sticky Disclaimer Footer - Dead Bottom */
+    .resource-card h3 {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #4ade80;
+        display: inline-block;
+    }
+
+    .resource-card ul {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+    .resource-card li {
+        margin-bottom: 8px;
+        color: #0084ff;
+    }
+    
     .fixed-footer {
         position: fixed;
         bottom: 0px;
@@ -130,6 +150,8 @@ st.markdown("""
         .stChatMessage.assistant { background-color: #1b3a2a !important; color: #fff; }
         [data-testid="stChatMessage"]:has(span[data-testid="stChatMessageAvatarUser"]),
         .stChatMessage.user { background-color: #222 !important; color: #fff; }
+        .resource-card { background-color: #1a1a1a; border-color: #333; }
+        .resource-card h3 { color: #fff; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -161,28 +183,19 @@ def load_chat(chat_idx):
 
 def format_message(role, content):
     if role == "assistant":
-        # Extract RAG data (assuming format: Answer\nDisclaimer\nSource: link)
         lines = content.split('\n')
         source_url = "https://groww.in"
         disclaimer = "Facts-only. No investment advice."
         main_answer_parts = []
-        
         for line in lines:
             if line.startswith("Source:"):
                 source_url = line.replace("Source:", "").strip()
-            elif line.strip() == "Facts-only. No investment advice.":
+            elif "Facts-only" in line:
                 disclaimer = line.strip()
             elif line.strip():
                 main_answer_parts.append(line)
-        
         main_answer = "<br>".join(main_answer_parts)
-        
-        # Unified HTML payload for zero gap
-        payload = f"""
-        <div>{main_answer}</div>
-        <div class="disclaimer-text">{disclaimer}</div>
-        <div class="source-wrapper">Source: <a href="{source_url}" target="_blank">{source_url}</a></div>
-        """
+        payload = f"""<div>{main_answer}</div><div class="disclaimer-text">{disclaimer}</div><div class="source-wrapper">Source: <a href="{source_url}" target="_blank">{source_url}</a></div>"""
         st.markdown(payload, unsafe_allow_html=True)
     else:
         st.markdown(content.replace("\n", "<br>"), unsafe_allow_html=True)
@@ -208,16 +221,22 @@ with st.sidebar:
 
 # Layout Content
 if st.session_state.view == 'home':
-    st.title("Mutual Fund Resources")
+    st.markdown('<h2 style="margin-top: -10px;">Mutual Fund Resources</h2>', unsafe_allow_html=True)
+    st.markdown("---")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("""<div class="resource-card"><h3>Official Portals</h3><ul><li><a href="https://www.amfiindia.com/">AMFI India</a></li><li><a href="https://www.sebi.gov.in/">SEBI Portal</a></li><li><a href="https://www.amfiindia.com/net-asset-value">Latest NAVs</a></li></ul></div>""", unsafe_allow_html=True)
+    with c2:
+        st.markdown("""<div class="resource-card"><h3>AMC Factsheets</h3><ul><li><a href="https://www.sbimf.com/">SBI Mutual Fund</a></li><li><a href="https://www.hdfcfund.com/">HDFC Mutual Fund</a></li><li><a href="https://groww.in/mutual-funds/fact-sheets">Groww Factsheets</a></li></ul></div>""", unsafe_allow_html=True)
+    with c3:
+        st.markdown("""<div class="resource-card"><h3>Market Data</h3><ul><li><a href="https://groww.in/">Groww Explorer</a></li><li><a href="https://www.moneycontrol.com/">Moneycontrol</a></li><li><a href="https://www.valueresearchonline.com/">Value Research</a></li></ul></div>""", unsafe_allow_html=True)
 else:
     if not st.session_state.messages:
         with st.chat_message("assistant", avatar="✳"):
             st.write("Hello! I am your Mutual Fund AI Assistant. How can I help you today?")
-    
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"], avatar="✳" if msg["role"] == "assistant" else "👤"):
             format_message(msg["role"], msg["content"])
-
     if prompt := st.chat_input("Ask about HDFC, SBI, or other funds..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.rerun()
@@ -232,5 +251,5 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
-# Sticky Footer Disclaimer
+# Sticky Footer
 st.markdown('<div class="fixed-footer">Facts-only. No investment advice.</div>', unsafe_allow_html=True)

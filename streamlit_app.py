@@ -221,15 +221,13 @@ with st.sidebar:
 
 # Layout Content
 if st.session_state.view == 'home':
-    st.markdown('<h2 style="margin-top: -10px;">Mutual Fund Resources</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="margin-top: -10px;">RAG Data Sources</h2>', unsafe_allow_html=True)
     st.markdown("---")
-    c1, c2, c3 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
-        st.markdown("""<div class="resource-card"><h3>Official Portals</h3><ul><li><a href="https://www.amfiindia.com/">AMFI India</a></li><li><a href="https://www.sebi.gov.in/">SEBI Portal</a></li><li><a href="https://www.amfiindia.com/net-asset-value">Latest NAVs</a></li></ul></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="resource-card"><h3>Regulatory Context</h3><ul><li><a href="https://www.sebi.gov.in/legal/master-circulars/may-2024/master-circular-for-mutual-funds_83515.html">SEBI Master Circular 2024</a></li><li><a href="https://www.amfiindia.com/statutory-disclosures">AMFI Disclosures</a></li></ul></div>""", unsafe_allow_html=True)
     with c2:
-        st.markdown("""<div class="resource-card"><h3>AMC Factsheets</h3><ul><li><a href="https://www.sbimf.com/">SBI Mutual Fund</a></li><li><a href="https://www.hdfcfund.com/">HDFC Mutual Fund</a></li><li><a href="https://groww.in/mutual-funds/fact-sheets">Groww Factsheets</a></li></ul></div>""", unsafe_allow_html=True)
-    with c3:
-        st.markdown("""<div class="resource-card"><h3>Market Data</h3><ul><li><a href="https://groww.in/">Groww Explorer</a></li><li><a href="https://www.moneycontrol.com/">Moneycontrol</a></li><li><a href="https://www.valueresearchonline.com/">Value Research</a></li></ul></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="resource-card"><h3>Direct Fund Data</h3><ul><li><a href="https://groww.in/mutual-funds/sbi-gold-fund-direct-growth">SBI Gold Direct Fund</a></li><li><a href="https://groww.in/mutual-funds/hdfc-large-and-mid-cap-fund-direct-growth">HDFC Large & Mid Cap</a></li><li><a href="https://groww.in/mutual-funds/hdfc-silver-etf-fof-direct-growth">HDFC Silver ETF FOF</a></li></ul></div>""", unsafe_allow_html=True)
 else:
     if not st.session_state.messages:
         with st.chat_message("assistant", avatar="✳"):

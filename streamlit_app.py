@@ -34,14 +34,14 @@ st.markdown("""
     /* Drastic Container Padding Reduction */
     .main .block-container {
         padding-top: 1rem !important;
-        padding-bottom: 0.5rem !important;
+        padding-bottom: 0px !important;
         max-width: 1000px !important;
     }
 
     /* Brand Header Tightening */
     .brand-header {
-        margin-top: -40px !important;
-        margin-bottom: 2px !important;
+        margin-top: -45px !important;
+        margin-bottom: 0px !important;
         font-size: 30px;
         font-weight: 800;
         color: #1a1a1a;
@@ -64,17 +64,13 @@ st.markdown("""
         color: #ffffff !important;
         background-color: #1e1e1e !important;
         border: 1px solid #333 !important;
-    }
-    
-    .stButton > button:hover {
-        border-color: #4ade80 !important;
-        background-color: #222 !important;
+        padding: 2px !important;
     }
 
     /* Chat Messages - Ultra Compact with zero bottom margin */
     [data-testid="stChatMessage"] {
-        padding: 2px 10px !important;
-        margin-bottom: 1px !important;
+        padding: 1px 10px !important;
+        margin-bottom: 0px !important;
         border-radius: 10px;
         border: none !important;
     }
@@ -90,24 +86,36 @@ st.markdown("""
         background-color: #f7f9fa !important;
     }
 
-    /* Source Links - Drastically tighter */
-    .source-footer {
+    /* Global Text tightness */
+    p, span, div {
+        margin-bottom: 0px !important;
+    }
+
+    /* Source Links - Zero gap */
+    .source-wrapper {
         font-size: 0.7rem;
         color: #444;
-        margin-top: 2px;
-        padding-top: 2px;
-        border-top: 1px solid rgba(0,0,0,0.04);
+        margin-top: 0px !important;
+        padding-top: 1px !important;
+        border-top: 1px solid rgba(0,0,0,0.03);
         display: block;
-        line-height: 1.2;
+        line-height: 1.1;
+    }
+
+    .disclaimer-text {
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 2px !important;
+        display: block;
     }
     
-    /* Disclaimer Footer Drastic Fix */
-    .disclaimer {
+    /* Sticky Disclaimer Footer - Dead Bottom */
+    .fixed-footer {
         position: fixed;
-        bottom: 2px;
+        bottom: 0px;
         right: 15px;
         font-size: 8px !important;
-        color: #aaa;
+        color: #bbb;
         margin: 0 !important;
         padding: 0 !important;
         line-height: 1 !important;
@@ -152,21 +160,32 @@ def load_chat(chat_idx):
     st.session_state.view = 'chat'
 
 def format_message(role, content):
-    # Preserve line breaks for factual data (bullets)
-    formatted_content = content.replace("\n", "  \n")
-    
     if role == "assistant":
-        source_match = re.search(r"Source:\s*(https?://\S+)", formatted_content, re.IGNORECASE)
-        if source_match:
-            source = source_match.group(1).strip().rstrip('.,;)]')
-            answer_text = re.sub(r"Source:\s*https?://\S+.*?\n?", "", formatted_content, flags=re.IGNORECASE).strip()
-            # Drastically reduce gap by merging into one markdown/html block
-            html_payload = f"{answer_text}<div class='source-footer'>Source: <a href='{source}' target='_blank'>{source}</a></div>"
-            st.markdown(html_payload, unsafe_allow_html=True)
-        else:
-            st.markdown(formatted_content, unsafe_allow_html=True)
+        # Extract RAG data (assuming format: Answer\nDisclaimer\nSource: link)
+        lines = content.split('\n')
+        source_url = "https://groww.in"
+        disclaimer = "Facts-only. No investment advice."
+        main_answer_parts = []
+        
+        for line in lines:
+            if line.startswith("Source:"):
+                source_url = line.replace("Source:", "").strip()
+            elif line.strip() == "Facts-only. No investment advice.":
+                disclaimer = line.strip()
+            elif line.strip():
+                main_answer_parts.append(line)
+        
+        main_answer = "<br>".join(main_answer_parts)
+        
+        # Unified HTML payload for zero gap
+        payload = f"""
+        <div>{main_answer}</div>
+        <div class="disclaimer-text">{disclaimer}</div>
+        <div class="source-wrapper">Source: <a href="{source_url}" target="_blank">{source_url}</a></div>
+        """
+        st.markdown(payload, unsafe_allow_html=True)
     else:
-        st.markdown(formatted_content, unsafe_allow_html=True)
+        st.markdown(content.replace("\n", "<br>"), unsafe_allow_html=True)
 
 # Sidebar
 with st.sidebar:
@@ -213,5 +232,5 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
-# Disclaimer
-st.markdown('<div class="disclaimer">Facts-only. No investment advice.</div>', unsafe_allow_html=True)
+# Sticky Footer Disclaimer
+st.markdown('<div class="fixed-footer">Facts-only. No investment advice.</div>', unsafe_allow_html=True)
